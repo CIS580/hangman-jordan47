@@ -56,10 +56,6 @@ function guessLetter(elm) {
   node.innerHTML = letter;
   guessesDiv.appendChild(node);
 
-  // TODO: Determine if the letter is in the secret word,
-  // if so, reveal it in the secretWordDiv, otherwise
-  // add a part to our hangman
-
   if(secretWord.indexOf(letter.toLowerCase()) != -1)
   {
 	var oldBlanks = blanks;
@@ -75,16 +71,24 @@ function guessLetter(elm) {
 			blanks += oldBlanks.charAt(i);
 		}
 	}
-	 drawBlanks();
+	drawBlanks();
   }
   else
   {
 	  wrongGuessCount++;
 	  drawStickMan(wrongGuessCount);
   }
-  // TODO: Determine if the game is over, and if so,
-  // let the player know if they have won or lost
- 
+
+  if(wrongGuessCount == 6)
+  {
+    blanks = "YOU LOSE";
+    drawBlanks();
+  }
+  if(blanks.toLowerCase() == secretWord.toLowerCase())
+  {
+    blanks = "YOU WIN"
+    drawBlanks();
+  }
 }
 
 /**
